@@ -1,0 +1,18 @@
+elasticsearch:
+  image: webwurst/elasticsearch
+  ports:
+    - "9200"
+
+rsyslog:
+  image: webwurst/rsyslog
+  ports:
+    - "514:514"
+  links:
+    - elasticsearch
+
+kibana:
+  build: .
+  ports:
+    - "80:80"
+  links:
+    - elasticsearch
