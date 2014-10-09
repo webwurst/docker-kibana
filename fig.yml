@@ -1,5 +1,6 @@
 elasticsearch:
-  image: webwurst/elasticsearch
+  # image: webwurst/elasticsearch
+  image: dockerelasticsearch_elasticsearch
   ports:
     - "9200"
 
@@ -13,6 +14,6 @@ rsyslog:
 kibana:
   build: .
   ports:
-    - "80:80"
+    - "5601:5601"
   links:
     - elasticsearch
