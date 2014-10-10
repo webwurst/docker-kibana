@@ -1,8 +1,16 @@
 elasticsearch:
-  # image: webwurst/elasticsearch
-  image: dockerelasticsearch_elasticsearch
+  image: webwurst/elasticsearch
   ports:
     - "9200"
+  volumes:
+    - ./docker_volumes/elasticsearch_data:/opt/elasticsearch/data
+
+logstash:
+  image: webwurst/logstash
+  ports:
+    - "25826:25826/udp"
+  links:
+    - elasticsearch
 
 rsyslog:
   image: webwurst/rsyslog
@@ -12,7 +20,7 @@ rsyslog:
     - elasticsearch
 
 kibana:
-  build: .
+  image: .
   ports:
     - "5601:5601"
   links:
