@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-envconf --in /etc/apache2/sites-enabled/kibana.conf.env --out /etc/apache2/sites-enabled/kibana.conf
-exec /usr/sbin/apache2 -d /etc/apache2 -k start -DNO_DETACH
+envconf --in /opt/kibana/config/kibana.yml.env --out /opt/kibana/config/kibana.yml
+exec /opt/kibana/bin/kibana
