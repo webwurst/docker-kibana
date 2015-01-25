@@ -1,19 +1,13 @@
-from ubuntu:14.04
-env DEBIAN_FRONTEND noninteractive
-
-# java
-run apt-get update && apt-get install -y default-jre-headless
+FROM java:openjdk-7-jre
 
 # kibana
-run apt-get update && apt-get install -y curl \
-  && mkdir -p /opt/kibana \
-  && curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-BETA1.1.tar.gz \
-    | tar -xz --directory /opt/kibana --strip-components 1
+RUN curl -L https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-beta3.tar.gz \
+  | tar -xz --directory /usr/local/src --strip-components 1
 
 # conf
-add envconf /usr/local/bin/
-add kibana.yml.env /opt/kibana/config/
-add kibana_run /usr/local/bin/
+COPY kibana.yml.env /usr/local/src/config/
+COPY envconf /usr/local/bin/
+COPY kibana_run /usr/local/bin/
 
-cmd ["kibana_run"]
-expose 5601
+CMD ["kibana_run"]
+EXPOSE 5601
