@@ -1,17 +1,13 @@
 FROM ubuntu
 
-RUN apt-get update
+RUN apt-get update && apt-get -y install curl
 
-RUN apt-get -y install curl
+WORKDIR /opt/kibana
 
-# kibana
-RUN curl -L https://download.elastic.co/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz \
-  | tar -xz --directory /usr/local/src --strip-components 1
+RUN curl -SL https://download.elastic.co/kibana/kibana/kibana-4.0.2-linux-x64.tar.gz \
+  | tar -xz --strip-components 1
 
-# conf
-COPY kibana.yml.env /usr/local/src/config/
-COPY envconf /usr/local/bin/
-COPY kibana_run /usr/local/bin/
+RUN sed -i 's/elasticsearch_url: "http:\/\/localhost:9200"/elasticsearch_url: "http:\/\/elasticsearch:9200"/g' config/kibana.yml
 
-CMD ["kibana_run"]
+CMD ["bin/kibana"]
 EXPOSE 5601

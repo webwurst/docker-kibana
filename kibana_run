@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-envconf --in /usr/local/src/config/kibana.yml.env --out /usr/local/src/config/kibana.yml
-exec /usr/local/src/bin/kibana
