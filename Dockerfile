@@ -3,8 +3,7 @@ FROM ubuntu
 RUN apt-get update && apt-get -y install curl
 
 WORKDIR /opt/kibana
-# ENV KIBANA_VERSION 4.0.2
-ENV KIBANA_VERSION 4.1.0-snapshot
+ENV KIBANA_VERSION 4.1.0
 
 RUN curl -SL https://download.elastic.co/kibana/kibana/kibana-$KIBANA_VERSION-linux-x64.tar.gz \
   | tar -xz --strip-components 1
